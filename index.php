@@ -28,4 +28,4 @@ if (!isset($elements)) {
 }
 
 print $twig->render('form.twig', ['form' => $form]);
-print $twig->render('table.twig', ['countries' => $elements, 'debug' => true]);
+print $twig->render('table.twig', ['countries' => $elements]);
