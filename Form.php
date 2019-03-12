@@ -16,21 +16,45 @@ class Form {
   // Form data.
   protected $data;
 
+  /**
+   * Form constructor.
+   */
   public function __construct() {
     $this->key = $_GET['key'] ?: '';
     $this->value = $_GET['value'] ?: '';
     $this->filter = $_GET['filter'] ?: '';
-    $this->data = new Countries();;
+
+    /**
+     * This should be passed using dependency injection but
+     * it's a simple example and the decision is keep it
+     * as simple as possible.
+     */
+    $this->data = new Countries();
   }
 
+  /**
+   * Return the key element.
+   *
+   * @return string
+   */
   public function getKey(){
     return $this->key;
   }
 
+  /**
+   * Return the value element.
+   *
+   * @return string
+   */
   public function getValue() {
     return $this->value;
   }
 
+  /**
+   * Return the filter element.
+   *
+   * @return string
+   */
   public function getFilter() {
     return $this->filter;
   }
