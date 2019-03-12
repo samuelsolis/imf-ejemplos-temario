@@ -268,11 +268,11 @@ class Countries {
    *
    * @param string $key
    *    The country key.
-   * @return string
-   *   The country value, empty if doesn't exist.
+   * @return array
+   *   The country element, empty if doesn't exist.
    */
   public function searchByKey($key) {
-    return $this->countries[$key] ?: '';
+    return [$key => $this->countries[$key]] ?: [];
   }
 
   /**
@@ -281,15 +281,15 @@ class Countries {
    * @param string $value
    *   The country name.
    *
-   * @return string
+   * @return array
    *   The country key, False in other case.
    */
   public function searchByValue($value) {
     if ($key = array_search($value, $this->countries)) {
-      return $this->countries[$key] ?: '';
+      return [$key => $this->countries[$key]] ?: [];
     }
 
-    return FALSE;
+    return [];
   }
 
   /**
