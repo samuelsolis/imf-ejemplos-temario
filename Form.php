@@ -1,5 +1,5 @@
 <?php
-require_once ("Countries.php");
+require_once ("CountriesInterfaz.php");
 
 /**
  * Form Controller.
@@ -19,17 +19,11 @@ class Form {
   /**
    * Form constructor.
    */
-  public function __construct() {
+  public function __construct(CountriesInterfaz $countries) {
     $this->key = $_GET['key'] ?: '';
     $this->value = $_GET['value'] ?: '';
     $this->filter = $_GET['filter'] ?: '';
-
-    /**
-     * This should be passed using dependency injection but
-     * it's a simple example and the decision is keep it
-     * as simple as possible.
-     */
-    $this->data = new Countries();
+    $this->data = $countries;
   }
 
   /**

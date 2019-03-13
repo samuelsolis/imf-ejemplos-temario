@@ -6,7 +6,8 @@ require_once ("Form.php");
 $loader = new \Twig_Loader_Filesystem(__DIR__.'/templates');
 $twig = new \Twig_Environment($loader);
 
-$form = new Form();
+$countries = new Countries();
+$form = new Form($countries);
 $elements = $form->getElements();
 
 print $twig->render('form.twig', ['form' => $form]);
