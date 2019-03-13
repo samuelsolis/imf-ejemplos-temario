@@ -1,6 +1,6 @@
 <?php
 
-interface CountriesInterfaz {
+interface CountriesInterface {
   public function searchByKey($key);
   public function searchByValue($value);
   public function count();

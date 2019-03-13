@@ -1,6 +1,6 @@
 <?php
-require_once ("CountriesInterfaz.php");
 
+include_once 'CountriesInterface.php';
 /**
  * Form Controller.
  *
@@ -16,14 +16,20 @@ class Form {
   // Form data.
   protected $data;
 
+
   /**
    * Form constructor.
+   * @param CountriesInterface $countries
    */
-  public function __construct(CountriesInterfaz $countries) {
-    $this->key = $_GET['key'] ?: '';
-    $this->value = $_GET['value'] ?: '';
-    $this->filter = $_GET['filter'] ?: '';
+  public function __construct(CountriesInterface $countries) {
+    $this->key = isset($_GET['key']) ? $_GET['key'] : '';
+    $this->value = isset($_GET['value']) ? $_GET['value'] : '';
+    $this->filter = isset($_GET['filter']) ? $_GET['filter'] : '';
     $this->data = $countries;
+  }
+
+  public function setKey($key) {
+    $this->key = $key;
   }
 
   /**
