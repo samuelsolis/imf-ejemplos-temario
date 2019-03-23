@@ -39,10 +39,3 @@ class Schema {
     return $tables;
   }
 }
-
-/**
- * Conductores: Usuario (relación a usuario) y Coche (referencia a coche)
-Coche: con los campos Marca, Modelo, Matrícula, Color (referencia a color), Propietario(referencia a usuario).
-Color: Con los campos nombre, valor hexadecimal y precio.
-
- */
