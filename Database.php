@@ -52,6 +52,26 @@ class Database {
     $field_rendered = implode(',', $field_rendered);
 
     $query = 'CREATE TABLE ' . $name . ' (' . $field_rendered . ')';
-    $result = $this->connection->query($query);
+    $this->connection->query($query);
+  }
+
+  /**
+   * Insert into $table de element describes in $values.
+   * @param $table
+   * @param $values
+   */
+  public function insert($table, $values) {
+    $query = 'INSERT INTO ' . $table . ' VALUES (' . implode(',', $values). ')';
+    $this->connection->query($query);
+  }
+
+  /**
+   * Execute the query into the database loaded.
+   *
+   * @param $query
+   *   The Query.
+   */
+  public function query($query) {
+    return $this->connection->query($query);
   }
 }

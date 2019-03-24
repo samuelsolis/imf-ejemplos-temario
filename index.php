@@ -1,17 +1,29 @@
 <?php
-
 require_once("vendor/autoload.php");
+
 require_once ("Database.php");
+require_once ("Color.php");
+require_once ("ColorForm.php");
+require_once ("ColorList.php");
 
 $loader = new \Twig_Loader_Filesystem(__DIR__.'/templates');
 $twig = new \Twig_Environment($loader);
 
-$database = new Database();
+$form = new ColorForm();
 
-if ($database->connect()) {
-    print 'Conectado correctamente';
+if (isset($_GET['submit']) && $_GET['submit'] == 'Save') {
+  $form->submit();
 }
 
-// Do something.
+if (isset($_GET['delete']) && $_GET['delete'] == 'Eliminar') {
+  $form->delete();
+}
 
-$database->close();
+/**
+ * List of colors.
+ */
+$colorList = new ColorList();
+$colores = $colorList->getAll();
+
+print $twig->render('colorForm.twig', ['values' => $form]);
+print $twig->render('table.twig', ['colores' => $colores]);

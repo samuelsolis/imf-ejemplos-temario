@@ -1,0 +1,18 @@
+<table>
+    <tr>
+        <th>Color</th>
+        <th>Hex</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+    {% for color in colores %}
+        <tr>
+            <td><div style="background-color: {{ color.hex }};width: 10px;height: 10px;border: 1px solid #000;"></div></td>
+            <td>{{ color.hex }}</td>
+            <td>{{ color.name }}</td>
+            <td>{{ color.price }}</td>
+            <td><a href="/test?hex={{ color.hex|url_encode }}" title="Click to edit">Editar</a></td>
+        </tr>
+    {% endfor %}
+</table>
