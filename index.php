@@ -9,21 +9,70 @@ require_once ("ColorList.php");
 $loader = new \Twig_Loader_Filesystem(__DIR__.'/templates');
 $twig = new \Twig_Environment($loader);
 
-$form = new ColorForm();
-
-if (isset($_GET['submit']) && $_GET['submit'] == 'Save') {
-  $form->submit();
-}
-
-if (isset($_GET['delete']) && $_GET['delete'] == 'Eliminar') {
-  $form->delete();
-}
+$app = new Slim\App();
 
 /**
- * List of colors.
+ * Return a simple color list.
  */
-$colorList = new ColorList();
-$colores = $colorList->getAll();
+$app->get("/colors", function ($request) {
+  $colorList = new ColorList();
+  $colores = $colorList->getAll();
+  $data = [];
 
-print $twig->render('colorForm.twig', ['values' => $form]);
-print $twig->render('table.twig', ['colores' => $colores]);
+  /** @var Color $color */
+  foreach ($colores as $color) {
+    $data[$color->getHex()] = [
+      'hex' => $color->getHex(),
+      'name' => $color->getName(),
+      'price' => $color->getPrice(),
+    ];
+  }
+  echo json_encode($data);
+});
+
+/**
+ * Create a new color.
+ */
+$app->post("/color", function ($request, $response, $arguments) {
+
+  $database = new Database();
+  $params = $request->getParsedBody();
+
+  $color = new Color($database);
+  $color->setHex($params['hex']);
+  $color->setName($params['name']);
+  $color->setPrice($params['price']);
+  $color->save();
+
+});
+
+/**
+ * Edit a color.
+ */
+$app->patch("/color/{hex}", function ($request, $response, $arguments) {
+
+  $database = new Database();
+  $params = $request->getParsedBody();
+  $hex = $request->getAttribute('hex');
+
+  $color = new Color($database);
+  $color->load($hex);
+  $color->setName($params['name']);
+  $color->setPrice($params['price']);
+  $color->save();
+
+});
+
+/**
+ * Delete a color from the database.
+ */
+$app->delete("/color/{hex}", function ($request, $response, $arguments) {
+  $database = new Database();
+  $params = $request->getParsedBody();
+  $hex = $request->getAttribute('hex');
+  $color = new Color($database);
+  $color->load($hex);
+  $color->delete();
+});
+
+$app->run();
