@@ -12,7 +12,7 @@
             <td>{{ color.hex }}</td>
             <td>{{ color.name }}</td>
             <td>{{ color.price }}</td>
-            <td><a href="/test?hex={{ color.hex|url_encode }}" title="Click to edit">Editar</a></td>
+            <td><a href="/?hex={{ color.hex|url_encode }}" title="Click to edit">Editar</a></td>
         </tr>
     {% endfor %}
 </table>
