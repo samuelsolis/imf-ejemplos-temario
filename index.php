@@ -1,78 +1,36 @@
 <?php
-require_once("vendor/autoload.php");
-
-require_once ("Database.php");
-require_once ("Color.php");
-require_once ("ColorForm.php");
-require_once ("ColorList.php");
+require 'vendor/autoload.php';
 
 $loader = new \Twig_Loader_Filesystem(__DIR__.'/templates');
-$twig = new \Twig_Environment($loader);
+$twig = new \Twig_Environment($loader, ['debug' => true]);
+$twig->addExtension(new \Twig\Extension\DebugExtension());
 
-$app = new Slim\App();
 
-/**
- * Return a simple color list.
- */
-$app->get("/colors", function ($request) {
-  $colorList = new ColorList();
-  $colores = $colorList->getAll();
-  $data = [];
+$client = new GuzzleHttp\Client();
+$res = $client->request('GET', 'https://datos.madrid.es/egob/catalogo/206717-0-agenda-eventos-bibliotecas.json', []);
 
-  /** @var Color $color */
-  foreach ($colores as $color) {
-    $data[$color->getHex()] = [
-      'hex' => $color->getHex(),
-      'name' => $color->getName(),
-      'price' => $color->getPrice(),
-    ];
-  }
-  echo json_encode($data);
-});
 
-/**
- * Create a new color.
- */
-$app->post("/color", function ($request, $response, $arguments) {
+switch ($res->getStatusCode()) {
 
-  $database = new Database();
-  $params = $request->getParsedBody();
+  case 200:
 
-  $color = new Color($database);
-  $color->setHex($params['hex']);
-  $color->setName($params['name']);
-  $color->setPrice($params['price']);
-  $color->save();
+    $body = json_decode($res->getBody()->getContents());
+    foreach ($body as $key => $value) {
+      if ($key == '@graph') {
+        print $twig->render('eventTable.twig', ['events' => $value]);
+      }
+    }
 
-});
-
-/**
- * Edit a color.
- */
-$app->patch("/color/{hex}", function ($request, $response, $arguments) {
-
-  $database = new Database();
-  $params = $request->getParsedBody();
-  $hex = $request->getAttribute('hex');
-
-  $color = new Color($database);
-  $color->load($hex);
-  $color->setName($params['name']);
-  $color->setPrice($params['price']);
-  $color->save();
-
-});
-
-/**
- * Delete a color from the database.
- */
-$app->delete("/color/{hex}", function ($request, $response, $arguments) {
-  $database = new Database();
-  $params = $request->getParsedBody();
-  $hex = $request->getAttribute('hex');
-  $color = new Color($database);
-  $color->load($hex);
-  $color->delete();
-});
-
-$app->run();
+    break;
+  case 400:
+  case 404:
+  case 403:
+    print '<p>Something was wrong in the client</p>';
+  break;
+  case 500:
+    print '<p>Something was wrong in the server</p>';
+    break;
+  default:
+    print '<p>Unrecognized error.</p>';
+    break;
+}
