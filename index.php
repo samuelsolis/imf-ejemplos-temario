@@ -1,12 +1,14 @@
 <?php
 
 require_once("vendor/autoload.php");
-require_once ("Form.php");
+include_once 'Form.php';
+include_once 'Countries.php';
 
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/templates');
 $twig = new \Twig\Environment($loader);
 
-$form = new Form();
+$countries = new Countries();
+$form = new Form($countries);
 $elements = $form->getElements();
 
 try {

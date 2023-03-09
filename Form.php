@@ -1,8 +1,8 @@
 <?php
-
 use JetBrains\PhpStorm\Pure;
 
 require_once ("Countries.php");
+include_once 'CountriesInterface.php';
 
 /**
  * Form Controller.
@@ -17,24 +17,44 @@ class Form {
   protected string $filter;
 
   // Form data.
-  protected $data;
+  protected CountriesInterface $data;
 
-  #[Pure] public function __construct() {
+  #[Pure] public function __construct(CountriesInterface $countries) {
     $this->key = $_GET['key'] ?? '';
     $this->value = $_GET['value'] ?? '';
     $this->filter = $_GET['filter'] ?? '';
-    $this->data = new Countries();;
+    $this->data = $countries;
   }
 
+  /**
+   * @param $key
+   */
+  public function setKey($key) {
+    $this->key = $key;
+  }
+
+  /**
+   * @return string
+   */
   public function getKey() : string{
     return $this->key;
   }
 
+  /**
+   * Return the value element.
+   *
+   * @return string
+   */
   public function getValue() : string{
     return $this->value;
   }
 
-  public function getFilter() : string{
+  /**
+   * Return the filter element.
+   *
+   * @return string
+   */
+  public function getFilter(): string {
     return $this->filter;
   }
 

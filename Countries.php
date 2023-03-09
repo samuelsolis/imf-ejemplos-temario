@@ -1,11 +1,12 @@
 <?php
+include_once 'CountriesInterface.php';
 
 /**
  * Emulate a database with countries.
  *
  * Class Countries
  */
-class Countries {
+class Countries implements CountriesInterface {
 
   // array of countries $key => $value.
   private array $countries;
