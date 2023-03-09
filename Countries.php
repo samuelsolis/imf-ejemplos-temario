@@ -317,7 +317,7 @@ class Countries {
    * @return array
    *   The countries that match with $search.
    */
-  public function filter(string $search) : bool {
+  public function filter(string $search) : array {
     return array_filter($this->countries, function($value) use ($search) {
       if (str_contains($value, $search)) {
         return TRUE;
