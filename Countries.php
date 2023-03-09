@@ -283,7 +283,7 @@ class Countries {
    * @return array
    *   The country key, False in other case.
    */
-  public function searchByValue(string $value) : string|bool {
+  public function searchByValue(string $value) : array {
       if ($key = array_search($value, $this->countries)) {
           return [$key => $this->countries[$key]] ?: [];
       }

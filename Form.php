@@ -1,4 +1,7 @@
 <?php
+
+use JetBrains\PhpStorm\Pure;
+
 require_once ("Countries.php");
 
 /**
@@ -9,29 +12,29 @@ require_once ("Countries.php");
 class Form {
 
   // Form inputs.
-  protected $key;
-  protected $value;
-  protected $filter;
+  protected string $key;
+  protected string $value;
+  protected string $filter;
 
   // Form data.
   protected $data;
 
-  public function __construct() {
-    $this->key = $_GET['key'] ?: '';
-    $this->value = $_GET['value'] ?: '';
-    $this->filter = $_GET['filter'] ?: '';
+  #[Pure] public function __construct() {
+    $this->key = $_GET['key'] ?? '';
+    $this->value = $_GET['value'] ?? '';
+    $this->filter = $_GET['filter'] ?? '';
     $this->data = new Countries();;
   }
 
-  public function getKey(){
+  public function getKey() : string{
     return $this->key;
   }
 
-  public function getValue() {
+  public function getValue() : string{
     return $this->value;
   }
 
-  public function getFilter() {
+  public function getFilter() : string{
     return $this->filter;
   }
 
@@ -40,7 +43,7 @@ class Form {
    *
    * @return array|string
    */
-  public function getElements() {
+  public function getElements() : array|string {
     if ($this->key != '') {
       $elements = $this->data->searchByKey($this->key);
     }
