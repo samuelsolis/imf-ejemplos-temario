@@ -8,7 +8,7 @@
 class Countries {
 
   // array of countries $key => $value.
-  private $countries;
+  private array $countries;
 
   /**
    * Countries constructor. Initialize the countries array.
@@ -271,7 +271,7 @@ class Countries {
    * @return string
    *   The country value, empty if doesn't exist.
    */
-  public function searchByKey($key) {
+  public function searchByKey(string $key) : string {
     return $this->countries[$key] ?: '';
   }
 
@@ -281,10 +281,10 @@ class Countries {
    * @param string $value
    *   The country name.
    *
-   * @return string
+   * @return string|bool
    *   The country key, False in other case.
    */
-  public function searchByValue($value) {
+  public function searchByValue(string $value) : string|bool {
     if ($key = array_search($value, $this->countries)) {
       return $this->countries[$key] ?: '';
     }
@@ -297,7 +297,7 @@ class Countries {
    *
    * @return int
    */
-  public function count() {
+  public function count() : int {
     return count($this->countries);
   }
 
@@ -305,7 +305,7 @@ class Countries {
    * Get all countries in a key->values array.
    * @return array
    */
-  public function getAll() {
+  public function getAll() : array {
     return $this->countries;
   }
 
@@ -317,9 +317,9 @@ class Countries {
    * @return array
    *   The countries that match with $search.
    */
-  public function filter($search) {
+  public function filter(string $search) : bool {
     return array_filter($this->countries, function($value) use ($search) {
-      if (strpos($value, $search) !== FALSE) {
+      if (str_contains($value, $search)) {
         return TRUE;
       }
       return FALSE;

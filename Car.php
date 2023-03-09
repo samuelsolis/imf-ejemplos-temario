@@ -1,21 +1,21 @@
 <?php
 
-
 class Car {
-  protected $fuel;
-  protected $velocity;
-  private $owner;
+  protected int $fuel;
+  protected int $velocity;
+  private string $owner;
 
-  public function __construct($owner) {
+  public function __construct(string $owner) {
     $this->owner = $owner;
     $this->fuel = 0;
     $this->velocity = 0;
   }
 
-  public function  speedUp(int $value = 1) {
+  public function speedUp(int $value = 1): bool {
     if ($this->fuel > $value) {
       $this->velocity += $value;
       $this->fuel -= $value;
+
       return TRUE;
     }
 
@@ -37,15 +37,15 @@ class Car {
     $this->fuel = 100;
   }
 
-  public function getFuel() {
+  public function getFuel() : int {
     return $this->fuel;
   }
 
-  public function getVelocity() {
+  public function getVelocity() : int {
     return $this->velocity;
   }
 
-  public function getOwner() {
+  public function getOwner() : string  {
     return $this->owner;
   }
 }
