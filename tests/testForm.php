@@ -4,13 +4,13 @@ use PHPUnit\Framework\TestCase;
 require_once('Form.php');
 require_once('Countries.php');
 
-class FormTest extends TestCase{
+class testForm extends TestCase{
 
   public function testGetKey(){
 
     // Create a stub for the SomeClass class.
     $countriesMock = $this->getMockBuilder(Countries::class)
-      ->setMethods(['searchByKey', 'searchByValue', 'getAll', 'filter'])
+      ->onlyMethods(['searchByKey', 'searchByValue', 'getAll', 'filter'])
       ->getMock();
 
     // Configure the Mock with the interface operations.

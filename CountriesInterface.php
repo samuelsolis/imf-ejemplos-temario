@@ -1,9 +1,9 @@
 <?php
 
 interface CountriesInterface {
-  public function searchByKey($key);
-  public function searchByValue($value);
+  public function searchByKey(string $key);
+  public function searchByValue(string $value);
   public function count();
   public function getAll();
-  public function filter($search);
+  public function filter(string $search);
 }
