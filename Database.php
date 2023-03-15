@@ -6,19 +6,21 @@ class Database {
   protected string $database_name;
   protected string $user;
   protected string $pass;
+  protected string $port;
 
   /** @var \mysqli */
   protected mysqli $connection;
 
   public function __construct() {
-    $this->database_server = 'localhost';
+    $this->database_server = '127.0.0.1';
     $this->user = 'root';
     $this->pass = 'root';
     $this->database_name= 'test';
+    $this->port = 33060;
   }
 
   public function connect(): bool {
-    $this->connection = new mysqli($this->database_server, $this->user, $this->pass);
+    $this->connection = new mysqli($this->database_server, $this->user, $this->pass, $this->database_name, $this->port);
 
     // Check connection
     if ($this->connection->connect_error) {

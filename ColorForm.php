@@ -1,4 +1,7 @@
 <?php
+
+use JetBrains\PhpStorm\Pure;
+
 include_once 'Color.php';
 include_once 'Database.php';
 
@@ -35,7 +38,7 @@ class ColorForm {
    *
    * @return string
    */
-  public function getName() : string {
+  #[Pure] public function getName() : string {
     return $this->color->getName();
   }
 
@@ -43,7 +46,7 @@ class ColorForm {
    * Return the color Hexadecimal value.
    * @return string
    */
-  public function getHex() : string {
+  #[Pure] public function getHex() : string {
     return $this->color->getHex();
   }
 
@@ -52,7 +55,7 @@ class ColorForm {
    *
    * @return int
    */
-  public function getPrice() : int {
+  #[Pure] public function getPrice() : int {
     return $this->color->getPrice();
   }
 

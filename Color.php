@@ -36,6 +36,9 @@ class Color {
   public function __construct(Database $database) {
     $this->storageController  = $database;
     $this->is_new = TRUE;
+    $this->name = '';
+    $this->hex = '';
+    $this->price = 0;
   }
 
   /**
@@ -72,12 +75,12 @@ class Color {
    */
   public function save() {
     $this->storageController->connect();
-    if ($this->is_new) {
+    if (!$this->exists($this->hex)) {
       $query = 'INSERT INTO colores (nombre,valor_hex,precio) VALUES ("%s","%s",%d)';
       $query = sprintf($query, $this->name, $this->hex, $this->price);
     }
     else {
-      $query = 'UPDATE colores VALUES (`nombre`,`precio`) VALUES (%s",%d) WHERE valor_hex="%s"';
+      $query = 'UPDATE colores SET nombre="%s", precio=%d WHERE valor_hex="%s"';
       $query = sprintf($query, $this->name, $this->price, $this->hex);
     }
 
@@ -85,6 +88,18 @@ class Color {
     $this->storageController->close();
 
     $this->is_new = FALSE;
+  }
+
+  private function exists(string $valor_hex) : bool {
+
+    $query = 'SELECT 1 FROM colores WHERE valor_hex="%s"';
+    $query = sprintf($query, $valor_hex);
+    $result = $this->storageController->query($query);
+    if ($result) {
+        return TRUE;
+    }
+
+      return FALSE;
   }
 
   /**
