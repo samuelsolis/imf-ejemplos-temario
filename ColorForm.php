@@ -6,7 +6,7 @@ include_once 'Database.php';
  * Class ColorForm
  */
 class ColorForm {
-  protected $color;
+  protected Color $color;
 
   /**
    * ColorForm constructor.
@@ -35,7 +35,7 @@ class ColorForm {
    *
    * @return string
    */
-  public function getName() {
+  public function getName() : string {
     return $this->color->getName();
   }
 
@@ -43,16 +43,16 @@ class ColorForm {
    * Return the color Hexadecimal value.
    * @return string
    */
-  public function getHex() {
+  public function getHex() : string {
     return $this->color->getHex();
   }
 
   /**
    * Return the color Price.
    *
-   * @return numeric
+   * @return int
    */
-  public function getPrice() {
+  public function getPrice() : int {
     return $this->color->getPrice();
   }
 

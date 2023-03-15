@@ -2,13 +2,13 @@
 
 class Database {
 
-  protected $database_server;
-  protected $database_name;
-  protected $user;
-  protected $pass;
+  protected string $database_server;
+  protected string $database_name;
+  protected string $user;
+  protected string $pass;
 
   /** @var \mysqli */
-  protected $connection;
+  protected mysqli $connection;
 
   public function __construct() {
     $this->database_server = 'localhost';
@@ -17,7 +17,7 @@ class Database {
     $this->database_name= 'test';
   }
 
-  public function connect() {
+  public function connect(): bool {
     $this->connection = new mysqli($this->database_server, $this->user, $this->pass);
 
     // Check connection
@@ -43,7 +43,7 @@ class Database {
    * @param array $fields
    *   List of fields in string format.
    */
-  public function createTable($name, $fields) {
+  public function createTable(string $name, array $fields) {
 
     $field_rendered = array();
     foreach ($fields as $field_name => $definition) {
@@ -60,7 +60,7 @@ class Database {
    * @param $table
    * @param $values
    */
-  public function insert($table, $values) {
+  public function insert(string $table, array $values) {
     $query = 'INSERT INTO ' . $table . ' VALUES (' . implode(',', $values). ')';
     $this->connection->query($query);
   }
@@ -71,7 +71,7 @@ class Database {
    * @param $query
    *   The Query.
    */
-  public function query($query) {
+  public function query(string $query) : mysqli_result|bool {
     return $this->connection->query($query);
   }
 }

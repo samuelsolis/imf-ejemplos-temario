@@ -2,7 +2,7 @@
 
 class Schema {
 
-  public function getSchema() {
+  public function getSchema() : array {
     $tables = array();
     $tables['usuarios'] = array(
       'email' => 'varchar(255) NOT NULL UNIQUE',
@@ -36,6 +36,7 @@ class Schema {
       'primary key' => '(id)',
 
     );
+
     return $tables;
   }
 }

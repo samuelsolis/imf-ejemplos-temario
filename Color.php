@@ -14,19 +14,19 @@ include_once 'Database.php';
  *   );
  */
 class Color {
-  protected $name;
-  protected $hex;
-  protected $price;
+  protected string $name;
+  protected string $hex;
+  protected int $price;
 
   /**
    * @var Database To persist the values.
    */
-  protected $storageController;
+  protected Database $storageController;
 
   /**
    * @var bool Determine if the color is new or not.
    */
-  protected $is_new;
+  protected bool $is_new;
 
   /**
    * Color constructor.
@@ -44,7 +44,7 @@ class Color {
    * @param $hex
    * @return bool
    */
-  public function load($hex) {
+  public function load(string $hex) : bool{
     $data = NULL;
 
     $this->storageController->connect();
@@ -105,7 +105,7 @@ class Color {
    * @param string $name
    *   The color name.
    */
-  public function setName($name) {
+  public function setName(string $name) {
     $this->name = $name;
   }
 
@@ -115,16 +115,16 @@ class Color {
    * @param string $hex
    *   The hexadecimal value.
    */
-  public function setHex($hex) {
+  public function setHex(string $hex) {
     $this->hex = $hex;
   }
 
   /**
    * Set the color price.
-   * @param numeric $price
+   * @param int $price
    *   The price
    */
-  public function setPrice($price) {
+  public function setPrice(int $price) {
     $this->price = $price;
   }
 
@@ -133,7 +133,7 @@ class Color {
    *
    * @return string
    */
-  public function getName() {
+  public function getName() : string {
     return $this->name;
   }
 
@@ -141,16 +141,16 @@ class Color {
    * Get he hexadecimal value.
    * @return string
    */
-  public function getHex() {
+  public function getHex() : string{
     return $this->hex;
   }
 
   /**
    * Get the price.
    *
-   * @return numeric
+   * @return int
    */
-  public function getPrice() {
+  public function getPrice() : int {
     return $this->price;
   }
 }

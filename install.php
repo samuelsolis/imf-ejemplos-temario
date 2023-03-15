@@ -4,8 +4,8 @@ require_once("vendor/autoload.php");
 require_once ("Database.php");
 require_once ("Schema.php");
 
-$loader = new \Twig_Loader_Filesystem(__DIR__.'/templates');
-$twig = new \Twig_Environment($loader);
+$loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/templates');
+$twig = new \Twig\Environment($loader);
 
 $database = new Database();
 $database->connect();

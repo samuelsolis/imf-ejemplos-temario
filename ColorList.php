@@ -14,7 +14,7 @@ class ColorList {
    *
    * @return array
    */
-  public function getAll() {
+  public function getAll() : array {
     $database = new Database();
     $database->connect();
     $query_result = $database->query('SELECT valor_hex FROM colores LIMIT 100');
@@ -27,7 +27,6 @@ class ColorList {
         $colores[] = $color;
       }
     }
-
 
     return $colores;
   }
