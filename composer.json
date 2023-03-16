@@ -1,6 +1,7 @@
 {
     "require": {
         "twig/twig": "^3.5",
+        "slim/slim": "^3.0",
         "ext-mysqli": "*"
     },
     "require-dev": {
