@@ -1,0 +1,20 @@
+<h1>Madrid events</h1>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Inicio</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Más información</th>
+        <th></th>
+    </tr>
+    {% for event in events %}
+        <tr>
+            <td>{{ event.title }}</td>
+            <td>{{ event.dtstart }}</td>
+            <td>{{ event.description }}</td>
+            <td>{{ event.price }}</td>
+            <td><a href="/?hex={{ event.link }}" title="Click to more info" target="_BLANK">Más información</a></td>
+        </tr>
+    {% endfor %}
+</table>
