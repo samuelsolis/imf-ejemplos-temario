@@ -2,19 +2,23 @@
 require 'vendor/autoload.php';
 
 class Requester {
-  /**
-   * @var array
-   */
-  protected $params;
 
-  public function __construct($params = array()){
+  protected array $params;
+
+  public function __construct(array $params = array()) {
     $this->params = $params;
   }
 
-  public function getHtml() {
+    /**
+     * @throws \Twig\Error\SyntaxError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Twig\Error\LoaderError
+     */
+    public function getHtml() : string {
 
-    $loader = new \Twig_Loader_Filesystem(__DIR__.'/templates');
-    $twig = new \Twig_Environment($loader, ['debug' => true]);
+    $loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/templates');
+    $twig = new \Twig\Environment($loader);
     $twig->addExtension(new \Twig\Extension\DebugExtension());
 
 
@@ -23,7 +27,8 @@ class Requester {
       [
         'headers' => ['Accept' => 'application/json'],
         'query' => $this->params,
-        'debug' => TRUE,
+        // Enable debug to get more info about the call.
+        // 'debug' => TRUE,
       ]
     );
 

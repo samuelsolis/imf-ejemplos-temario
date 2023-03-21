@@ -12,8 +12,14 @@
       }
     }
     $requester = new Requester($data);
-    print $requester->getHtml();
-    exit;
+      try {
+          print $requester->getHtml();
+      } catch (\Exception $e) {
+          // simple error management.
+        print '<p class="error">Ajax Error.</p>';
+        exit;
+      }
+      exit;
   }
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" dir="ltr">
